@@ -31,15 +31,12 @@ df[COL_POP] = df[COL_POP].fillna(1.0)
 df['Type and size of educational resources - schools'] = df[COL_PUB] + df[COL_PRIV]
 COL_SCH = "Type and size of educational resources - schools"
 
-# drop bad coords
-df_copy = df.dropna(subset=[COL_LAT, COL_LON, COL_COVI])
-
 # sidebar interactions
 st.sidebar.header("Filters")
 
 # Governorates filters
-govs = sorted(df_copy[COL_GOV].dropna().unique())
-dynamic_filters = DynamicFilters(df_copy, filters=[COL_GOV])
+govs = sorted(df[COL_GOV].dropna().unique())
+dynamic_filters = DynamicFilters(df, filters=[COL_GOV])
 dynamic_filters.display_filters(location='sidebar')
 df_f = dynamic_filters.filter_df()
 
@@ -104,7 +101,6 @@ st.plotly_chart(map_fig, use_container_width=True)
 
 # Keep only needed cols and coerce to numeric
 tmp = df_f[[COL_GOV, COL_SCH, COL_UNI, COL_POP]].copy()
-tmp = tmp.replace([np.inf, -np.inf], np.nan).dropna(subset=[COL_SCH, COL_UNI])
 
 # Aggregate by governorate
 #    - Schools & Unis: sum across towns
