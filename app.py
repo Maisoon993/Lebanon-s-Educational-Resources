@@ -57,10 +57,10 @@ def safe_slider(label, series, as_int=False, step=1):
     return st.sidebar.slider(label, min_value=lo, max_value=hi, value=(lo, hi), step=step if as_int else None)
 
 # usage
-cov_min, cov_max = safe_slider("Coverage index range (schools per citizen)", df_f[COL_COVI])
+cov_min, cov_max = safe_slider("Coverage index range (schools per citizen)", df_f[COL_COVI], as_int=True, step=1)
 sch_min, sch_max = safe_slider("Number of Schools", df_f[COL_SCH], as_int=True, step=1)
 uni_min, uni_max = safe_slider("Number of Universities", df_f[COL_UNI], as_int=True, step=1)
-pop_min, pop_max = safe_slider("Population Size", df_f[COL_POP])
+pop_min, pop_max = safe_slider("Population Size", df_f[COL_POP], as_int=True, step=1)
 
 # --- apply ALL filters to df_f
 mask = (
