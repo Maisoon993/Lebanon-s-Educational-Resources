@@ -26,6 +26,7 @@ COL_UNI = "Type and size of educational resources - universities"
 
 # Clean population for bubble size (fill NA with 1)
 df[COL_POP] = df[COL_POP].fillna(1.0)
+df = df.dropna(subset=[COL_LAT, COL_LON]) # remove towns with missing coordinates
 
 # add column for the size of schools
 df['Type and size of educational resources - schools'] = df[COL_PUB] + df[COL_PRIV]
